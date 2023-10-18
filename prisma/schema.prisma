@@ -1,6 +1,5 @@
-//プリズマスキーマファイルです。データモデルとデータベース接続の構成を定義します。
-//プリズマスキーマについて詳しくはドキュメントを参照してください：https://pris.ly/d/prisma-schema
-//prisma‐authドキュメント/Prisma Adopterページからペースト
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
