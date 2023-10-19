@@ -1,4 +1,4 @@
-import { authOptions } from "@/lib/nextauth";
+import { authOptions } from "@/lib/nextauth"; 
 import NextAuth from "next-auth/next";
 
 // 提供された認証オプションを使用して、NextAuth ハンドラを作成します。

@@ -1,18 +1,21 @@
 import { Configuration, OpenAIApi } from "openai";
 
+// OpenAI APIを初期化する
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
+// ユーザー入力と出力フォーマットを与えると、出力を生成する。
 interface OutputFormat {
   [key: string]: string | string[] | OutputFormat;
 }
 
+// ユーザー入力と出力フォーマットを与えると、出力を生成する。
 export async function strict_output(
-  system_prompt: string,
-  user_prompt: string | string[],
-  output_format: OutputFormat,
+  system_prompt: string,  
+  user_prompt: string | string[],  
+  output_format: OutputFormat,  
   default_category: string = "",
   output_value_only: boolean = false,
   model: string = "gpt-3.5-turbo",
@@ -26,7 +29,7 @@ export async function strict_output(
   }[]
 > {
   // ユーザー入力がリストの場合、出力もjsonのリストとして処理する。
-  const list_input: boolean = Array.isArray(user_prompt);
+  const list_input: boolean = Array.isArray(user_prompt);  
   // 出力フォーマットに<or>の動的要素が含まれている場合、動的要素を扱うようにプロンプトに追加する。
   const dynamic_elements: boolean = /<.*?>/.test(JSON.stringify(output_format));
   // 出力フォーマットに[ or ]のリスト要素が含まれている場合、プロンプトにリストを処理するように追加する。

@@ -16,9 +16,9 @@ export default async function Home() {
   }
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-      <Card className="w-[300px]">
+      <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>QuizGeniusへようこそ🔥</CardTitle>
+          <CardTitle className="text-xl">QuizGeniusへようこそ🔥</CardTitle>
           <CardDescription>
             QuizGeniusはChatGPTを用いたAIクイズ自動生成プラットフォームです。早速ログインボタンから始めましょう!
           </CardDescription>

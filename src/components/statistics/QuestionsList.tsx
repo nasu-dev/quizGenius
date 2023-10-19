@@ -11,57 +11,58 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Question } from "@prisma/client";
+
 type Props = {
-  questions: Question[];
+  questions: Question[]; //クイズの問題と解答
 };
 
-const QuestionsList = ({ questions }: Props) => {
+const QuestionsList = ({ questions }: Props) => { //クイズの問題と解答を表示
   return (
-    <Table className="mt-4">
-      <TableCaption>End of list.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[10px]">No.</TableHead>
-          <TableHead>Question & Correct Answer</TableHead>
-          <TableHead>Your Answer</TableHead>
+    <Table className="mt-4"> {/* テーブル */}
+      <TableCaption>End of list.</TableCaption> {/* テーブルのキャプション */}
+      <TableHeader> {/* テーブルヘッダー */}
+        <TableRow> {/* テーブル行 */}
+          <TableHead className="w-[10px]">No.</TableHead> {/* テーブルヘッダー */}
+          <TableHead>問題と解答</TableHead> 
+          <TableHead>あなたの回答</TableHead>
 
-          {questions[0].questionType === "open_ended" && (
-            <TableHead className="w-[10px] text-right">Accuracy</TableHead>
+          {questions[0].questionType === "open_ended" && ( //問題の種類がopen_endedの場合
+            <TableHead className="w-[10px] text-right">正答率</TableHead> //テーブルヘッダー
           )}
         </TableRow>
       </TableHeader>
       <TableBody>
         <>
-          {questions.map(
+          {questions.map( 
             (
-              { answer, question, userAnswer, percentageCorrect, isCorrect },
-              index
+              { answer, question, userAnswer, percentageCorrect, isCorrect }, //問題と解答、ユーザーの回答、正確性、正解かどうか
+              index 
             ) => {
               return (
-                <TableRow key={index}>
-                  <TableCell className="font-medium">{index + 1}</TableCell>
+                <TableRow key={index}> 
+                  <TableCell className="font-medium">{index + 1}</TableCell> {/* 問題番号 */}
                   <TableCell>
-                    {question} <br />
+                    {question} <br /> {/* 問題 */}
                     <br />
-                    <span className="font-semibold">{answer}</span>
+                    <span className="font-semibold">{answer}</span> {/* 解答 */}
                   </TableCell>
-                  {questions[0].questionType === "open_ended" ? (
-                    <TableCell className={`font-semibold`}>
-                      {userAnswer}
+                  {questions[0].questionType === "open_ended" ? ( //問題の種類がopen_endedの場合
+                    <TableCell className={`font-semibold`}> 
+                      {userAnswer} {/* ユーザーの回答 */}
                     </TableCell>
-                  ) : (
+                  ) : ( //問題の種類がopen_ended以外の場合
                     <TableCell
                       className={`${
                         isCorrect ? "text-green-600" : "text-red-600"
                       } font-semibold`}
                     >
-                      {userAnswer}
+                      {userAnswer} {/* ユーザーの回答 */}
                     </TableCell>
                   )}
 
-                  {percentageCorrect && (
-                    <TableCell className="text-right">
-                      {percentageCorrect}
+                  {percentageCorrect && (  //正確性がある場合
+                    <TableCell className="text-right">  {/* テーブルセル */}
+                      {percentageCorrect} % {/* 正確性 */}
                     </TableCell>
                   )}
                 </TableRow>

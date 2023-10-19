@@ -16,7 +16,8 @@ export function ThemeToggle({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const { setTheme } = useTheme();
+  const { setTheme } = useTheme(); 
+
 
   return (
     <div className={className} {...props}>

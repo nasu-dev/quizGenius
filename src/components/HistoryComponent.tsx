@@ -9,40 +9,43 @@ type Props = {
   userId: string;
 };
 
-const HistoryComponent = async ({ limit, userId }: Props) => {
-  const games = await prisma.game.findMany({
-    take: limit,
-    where: {
-      userId,
+const HistoryComponent = async ({ limit, userId }: Props) => { 
+  // findMany関数：複数件のレコードを取得する。見つからない場合は空配列を返す
+  const games = await prisma.game.findMany({ //ゲーム一覧を取得
+    take: limit,  //最大取得数
+    where: { 
+      userId, 
     },
     orderBy: {
-      timeStarted: "desc",
+      timeStarted: "desc", //開始時間で降順ソート
     },
   });
   return (
     <div className="space-y-8">
-      {games.map((game) => {
+      {games.map((game) => { //ゲーム一覧をループ
         return (
-          <div className="flex items-center justify-between" key={game.id}>
-            <div className="flex items-center">
+          <div className="flex items-center justify-between" key={game.id}>  
+            <div className="flex items-center">  
+            {/* ゲームの種類によってアイコンを変更 */}
               {game.gameType === "mcq" ? (
-                <CopyCheck className="mr-3" />
+                <CopyCheck className="mr-3" /> 
               ) : (
-                <Edit2 className="mr-3" />
+                <Edit2 className="mr-3" /> 
               )}
-              <div className="ml-4 space-y-1">
-                <Link
-                  className="text-base font-medium leading-none underline"
+              <div className="ml-4 space-y-1"> 
+                <Link 
+                  className="text-base font-medium leading-none underline" 
                   href={`/statistics/${game.id}`}
                 >
-                  {game.topic}
+                  {game.topic}  
                 </Link>
                 <p className="flex items-center px-2 py-1 text-xs text-white rounded-lg w-fit bg-slate-800">
-                  <Clock className="w-4 h-4 mr-1" />
-                  {new Date(game.timeEnded ?? 0).toLocaleDateString()}
+                  <Clock className="w-4 h-4 mr-1" /> 
+                  {/* 日付形式で表示 */}
+                  {new Date(game.timeStarted).toLocaleDateString("ja-JP")}
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  {game.gameType === "mcq" ? "Multiple Choice" : "Open-Ended"}
+                <p className="text-sm text-muted-foreground"> 
+                  {game.gameType === "mcq" ? "選択式" : "穴埋め式"} 
                 </p>
               </div>
             </div>

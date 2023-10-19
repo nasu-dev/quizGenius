@@ -10,18 +10,19 @@ type Props = {
   };
 };
 
-const OpenEndedPage = async ({ params: { gameId } }: Props) => {
-  const session = await getAuthSession();
-  if (!session?.user) {
+const OpenEndedPage = async ({ params: { gameId } }: Props) => { // gameIdを受け取る
+  const session = await getAuthSession(); // セッションを取得
+  if (!session?.user) { // セッションがない場合は、ホームページにリダイレクト
     return redirect("/");
   }
 
+  // prisma.game.findUnique関数は、Prismaによって自動生成された関数で、指定された条件に一致するデータベースのレコードを取得するために使用される
   const game = await prisma.game.findUnique({
     where: {
       id: gameId,
     },
-    include: {
-      questions: {
+    include: {  // includeオプションは、関連するデータを取得するために使用される
+      questions: { 
         select: {
           id: true,
           question: true,
@@ -33,7 +34,7 @@ const OpenEndedPage = async ({ params: { gameId } }: Props) => {
   if (!game || game.gameType === "mcq") {
     return redirect("/quiz");
   }
-  return <OpenEnded game={game} />;
+  return <OpenEnded game={game} />; // OpenEndedコンポーネントにgameオブジェクトを渡す
 };
 
 export default OpenEndedPage;

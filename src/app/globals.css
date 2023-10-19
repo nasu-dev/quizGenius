@@ -4,58 +4,59 @@
  
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 100%; /* 背景色 */
+    --foreground: 222.2 84% 4.9%; /* テキスト色 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%; /* カードの背景色 */
+    --card-foreground: 222.2 84% 4.9%; /* カードのテキスト色 */
  
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 0% 100%; /* ポップオーバーの背景色 */
+    --popover-foreground: 222.2 84% 4.9%; /* ポップオーバーのテキスト色 */
  
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 222.2 47.4% 11.2%; /* プライマリーカラー */
+    --primary-foreground: 210 40% 98%; /* プライマリーカラーのテキスト色 */
  
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 40% 96.1%; /* セカンダリーカラー */
+    --secondary-foreground: 222.2 47.4% 11.2%; /* セカンダリーカラーのテキスト色 */
  
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 96.1%; /* ミュートカラー */
+    --muted-foreground: 215.4 16.3% 46.9%; /* ミュートカラーのテキスト色 */
  
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%; /* アクセントカラー */
+    --accent-foreground: 222.2 47.4% 11.2%; /* アクセントカラーのテキスト色 */
  
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%; /* 破壊的カラー */
+    --destructive-foreground: 210 40% 98%; /* 破壊的カラーのテキスト色 */
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 214.3 31.8% 91.4%; /* ボーダーの色 */
+    --input: 214.3 31.8% 91.4%; /* インプットの色 */
+    --ring: 222.2 84% 4.9%; /* リングの色 */
  
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* ボーダーの丸み */
   }
  
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* ダークモードのカラースキーム */
+    --background: 212 52% 5.52%;
+    --foreground: 212 8% 98.45%;
  
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 212 49% 8.969999999999999%;
+    --card-foreground: 212 8% 98.45%;
  
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
  
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 20% 98%;
  
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
  
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
  
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
  
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;

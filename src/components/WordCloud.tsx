@@ -5,27 +5,27 @@ import React from "react";
 import D3WordCloud from "react-d3-cloud";
 
 type Props = {
-  formattedTopics: { text: string; value: number }[];
+  formattedTopics: { text: string; value: number }[]; //トピック一覧
 };
 
-const fontSizeMapper = (word: { value: number }) =>
-  Math.log2(word.value) * 5 + 16;
+const fontSizeMapper = (word: { value: number }) =>  
+  Math.log2(word.value) * 20 + 30; //フォントサイズ
 
-const WordCloud = ({ formattedTopics }: Props) => {
-  const theme = useTheme();
-  const router = useRouter();
+const WordCloud = ({ formattedTopics }: Props) => { //ワードクラウド
+  const theme = useTheme(); //テーマ
+  const router = useRouter(); //ルーター
   return (
     <>
       <D3WordCloud
-        data={formattedTopics}
-        height={550}
-        font="Times"
-        fontSize={fontSizeMapper}
-        rotate={0}
-        padding={10}
-        fill={theme.theme === "dark" ? "white" : "black"}
-        onWordClick={(e, d) => {
-          router.push("/quiz?topic=" + d.text);
+        data={formattedTopics} //トピック一覧
+        height={400} //高さ
+        font='Times New Roman'
+        fontSize={fontSizeMapper} //フォントサイズ
+        rotate={0} //回転
+        padding={10} //パディング
+        fill={theme.theme === "dark" ? "white" : "black"} //色
+        onWordClick={(e, d) => { 
+          router.push("/quiz?topic=" + d.text); //クイズページへのルーティング
         }}
       />
     </>

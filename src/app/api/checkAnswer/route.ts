@@ -6,6 +6,7 @@ import stringSimilarity from "string-similarity";
 
 export async function POST(req: Request, res: Response) {
   try {
+    
     const body = await req.json();
     const { questionId, userInput } = checkAnswerSchema.parse(body);
     const question = await prisma.question.findUnique({

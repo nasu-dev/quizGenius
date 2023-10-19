@@ -14,28 +14,28 @@ export const metadata = {
   description: "好きなお題で自分だけのオリジナルクイズに挑戦しましょう!",
 };
 
-const Dasboard = async (props: Props) => {
-  const session = await getAuthSession();
-  if (!session?.user) {
+const Dasboard = async (props: Props) => { 
+  const session = await getAuthSession(); //セッションを取得
+  if (!session?.user) { //セッションがない場合はログインページにリダイレクト
     redirect("/");
   }
 
   return (
-    <main className="p-8 mx-auto max-w-7xl">
-      <div className="flex items-center">
-        <h2 className="mr-2 text-3xl font-bold tracking-tight">
+    <main className="pt-8 px-8 mx-auto max-w-7xl"> {/* メインコンテンツ */}
+      <div className="flex items-center"> {/* ヘッダー */}
+        <h2 className="mr-2 text-3xl font-bold tracking-tight"> {/* ヘッダータイトル */}
           ダッシュボード
         </h2>
-        <DetailsDialog />
+        
       </div>
 
-      <div className="grid gap-4 mt-4 md:grid-cols-2">
-        <QuizMeCard />
-        <HistoryCard />
+      <div className="grid gap-6 mt-4 md:grid-cols-2 "> {/* グリッド */}
+        <QuizMeCard /> {/* クイズに挑戦 */}
+        <HistoryCard /> {/* 履歴 */}
       </div>
-      <div className="grid gap-4 mt-4 md:grid-cols-2 lg:grid-cols-7">
-        <HotTopicsCard />
-        <RecentActivityCard />
+      <div className="grid gap-6 my-6 md:grid-cols-2 lg:grid-cols-7"> {/* グリッド */}
+        <HotTopicsCard /> {/* トピック */}
+        <RecentActivityCard /> {/* 最近のアクティビティ */}
       </div>
     </main>
   );

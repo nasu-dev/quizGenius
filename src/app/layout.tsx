@@ -13,14 +13,16 @@ export const metadata: Metadata = {
     "QuizGeniusはChatGPTを用いたAIクイズ自動生成プラットフォームです。",
 };
 
+
+// 全てのページで使用されるレイアウトを定義する
 export default function RootLayout({
-  children,
+  children,  
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode;  
 }) {
   return (
-    <html lang="en">
-      <body className={cn(inter.className, "antialiased min-h-screen pt-16")}>
+    <html lang="ja">
+      <body className={cn(inter.className, "antialiased min-h-screen pt-16")}> 
         <Providers>
           <Navbar />
           {children}

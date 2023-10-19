@@ -12,10 +12,10 @@ interface Props extends AvatarProps {
 
 const UserAvatar = ({ user, ...props }: Props) => {
   return (
-    <Avatar {...props}>
+    <Avatar {...props}> {/* アバター */}
       {user.image ? ( // ユーザーの画像が存在する場合
        // 画像を表示するコンテナー
-        <div className="relative w-full h-full aspect-square">
+        <div className="relative w-full h-full aspect-square"> 
           <Image
             fill
             src={user.image}// ユーザーの画像を表示

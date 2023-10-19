@@ -14,7 +14,7 @@ import { prisma } from "@/lib/db";
 
 type Props = {};
 
-const RecentActivityCard = async (props: Props) => {
+const RecentActivityCard = async (props: Props) => { //最近のアクティビティカード
   const session = await getAuthSession();
   if (!session?.user) {
     return redirect("/");
@@ -34,8 +34,8 @@ const RecentActivityCard = async (props: Props) => {
         良い調子です！これまで{games_count} 個のクイズに挑戦しました！
         </CardDescription>
       </CardHeader>
-      <CardContent className="max-h-[580px] overflow-scroll">
-        <HistoryComponent limit={10} userId={session.user.id} />
+      <CardContent className="ml-8 max-h-[330px] overflow-scroll"> {/* カード本文 */}
+        <HistoryComponent limit={10} userId={session.user.id} /> {/* 履歴コンポーネント */}
       </CardContent>
     </Card>
   );

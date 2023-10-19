@@ -4,6 +4,8 @@ import { getQuestionsSchema } from "@/schemas/questions";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+
+// クイズの質問を取得するための API ルート
 export async function POST(req: Request, res: Response) {
   try {
     // ユーザーの認証セッションを取得

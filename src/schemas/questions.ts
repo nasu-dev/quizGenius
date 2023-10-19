@@ -1,6 +1,6 @@
+//TypeScriptの型システムを活用し、データの形状や構造を静的にチェックすることが可能なライブラリ。
 import { z } from "zod";
-// ZodはTypeScriptの型システムを活用し、データの形状や構造を静的にチェックすることが可能なライブラリです。
-// これにより、APIからのレスポンスやユーザーからの入力など、アプリケーションで扱うデータが期待する形状であることを保証できます。
+
 
 // getQuestionsSchema: クイズの質問を取得する際のスキーマ
 export const getQuestionsSchema = z.object({

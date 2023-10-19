@@ -13,9 +13,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import { Input } from "../ui/input";
-import { BookOpen, CopyCheck } from "lucide-react";
+import { BookOpen, CopyCheck, Link, LucideLayoutDashboard } from "lucide-react";
 import { Separator } from "../ui/separator";
 import axios, { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
@@ -29,19 +29,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import LoadingQuestions from "../LoadingQuestions";
+import { DialogClose } from "../ui/dialog";
 
 type Props = {
-  topic: string;
+  topic: string; //トピック名
 };
 
-type Input = z.infer<typeof quizCreationSchema>;
+type Input = z.infer<typeof quizCreationSchema>; //入力値の型
 
 const QuizCreation = ({ topic: topicParam }: Props) => {
+  //トピック名を受け取る
   const router = useRouter();
-  const [showLoader, setShowLoader] = React.useState(false);
-  const [finishedLoading, setFinishedLoading] = React.useState(false);
-  const { toast } = useToast();
+  const [showLoader, setShowLoader] = React.useState(false); //ローディング画面の表示
+  const [finishedLoading, setFinishedLoading] = React.useState(false); //ローディング画面の表示
+  const { toast } = useToast(); //トースト
   const { mutate: getQuestions, isLoading } = useMutation({
+    //クイズの取得
     mutationFn: async ({ amount, topic, type }: Input) => {
       const response = await axios.post("/api/game", { amount, topic, type });
       return response.data;
@@ -49,22 +52,28 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   });
 
   const form = useForm<Input>({
-    resolver: zodResolver(quizCreationSchema),
+    resolver: zodResolver(quizCreationSchema), //バリデーション
     defaultValues: {
-      topic: topicParam,
-      type: "mcq",
-      amount: 3,
+      //デフォルト値
+      topic: topicParam, //トピック名
+      type: "mcq", //クイズの種類
+      amount: 3, //問題数
     },
   });
 
   const onSubmit = async (data: Input) => {
-    setShowLoader(true);
+    //クイズの作成
+    setShowLoader(true); //ローディング画面の表示
     getQuestions(data, {
+      //クイズの取得
       onError: (error) => {
-        setShowLoader(false);
+        //エラー処理
+        setShowLoader(false); //ローディング画面の非表示
         if (error instanceof AxiosError) {
+          //Axiosのエラー
           if (error.response?.status === 500) {
             toast({
+              //トースト
               title: "Error",
               description: "Something went wrong. Please try again later.",
               variant: "destructive",
@@ -73,8 +82,10 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
         }
       },
       onSuccess: ({ gameId }: { gameId: string }) => {
-        setFinishedLoading(true);
+        //成功時の処理
+        setFinishedLoading(true); //ローディング画面の非表示
         setTimeout(() => {
+          //2秒後にクイズページへのルーティング
           if (form.getValues("type") === "mcq") {
             router.push(`/play/mcq/${gameId}`);
           } else if (form.getValues("type") === "open_ended") {
@@ -84,34 +95,43 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
       },
     });
   };
-  form.watch();
+  form.watch(); //フォームの監視
 
   if (showLoader) {
-    return <LoadingQuestions finished={finishedLoading} />;
+    //ローディング画面の表示
+    return <LoadingQuestions finished={finishedLoading} />; //ローディング画面
   }
 
   return (
-    <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+    <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-2/3 lg:w-1/2">
+      {" "}
+      {/* メインコンテンツ */}
       <Card>
+        {" "}
+        {/* カード */}
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Quiz Creation</CardTitle>
-          <CardDescription>Choose a topic</CardDescription>
+          <CardTitle className="text-2xl font-bold">クイズ生成</CardTitle>
+          <CardDescription>トピックを選んでください</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
+            {" "}
+            {/* フォーム */}
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
                 name="topic"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Topic</FormLabel>
+                    <FormLabel>トピック</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter a topic" {...field} />
+                      <Input
+                        placeholder="（例）動物、食べ物、スポーツ"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
-                      Please provide any topic you would like to be quizzed on
-                      here.
+                      好きなトピックを入力してください
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -122,10 +142,10 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                 name="amount"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Number of Questions</FormLabel>
+                    <FormLabel>生成する問題数</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="How many questions?"
+                        placeholder="（例）3"
                         type="number"
                         {...field}
                         onChange={(e) => {
@@ -136,8 +156,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                       />
                     </FormControl>
                     <FormDescription>
-                      You can choose how many questions you would like to be
-                      quizzed on here.
+                      1から10の数字で入力してください
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -147,20 +166,20 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
               <div className="flex justify-between">
                 <Button
                   variant={
-                    form.getValues("type") === "mcq" ? "default" : "secondary"
+                    form.getValues("type") === "mcq" ? "default" : "secondary" //クイズの種類がmcqの場合はdefault、open_endedの場合はsecondary
                   }
-                  className="w-1/2 rounded-none rounded-l-lg"
+                  className="w-1/2 rounded-none rounded-l-lg" //クイズの種類がmcqの場合は左丸、open_endedの場合は右丸
                   onClick={() => {
                     form.setValue("type", "mcq");
                   }}
                   type="button"
                 >
-                  <CopyCheck className="w-4 h-4 mr-2" /> Multiple Choice
+                  <CopyCheck className="w-4 h-4 mr-2" /> 選択式
                 </Button>
                 <Separator orientation="vertical" />
                 <Button
                   variant={
-                    form.getValues("type") === "open_ended"
+                    form.getValues("type") === "open_ended" //クイズの種類がopen_endedの場合はdefault、mcqの場合はsecondary
                       ? "default"
                       : "secondary"
                   }
@@ -168,11 +187,11 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                   onClick={() => form.setValue("type", "open_ended")}
                   type="button"
                 >
-                  <BookOpen className="w-4 h-4 mr-2" /> Open Ended
+                  <BookOpen className="w-4 h-4 mr-2" /> 穴埋め式
                 </Button>
               </div>
               <Button disabled={isLoading} type="submit">
-                Submit
+                自動生成する
               </Button>
             </form>
           </Form>

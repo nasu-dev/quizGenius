@@ -1,43 +1,46 @@
 import React from "react";
 import keyword_extractor from "keyword-extractor";
 
+
 type Props = {
   answer: string;
-  setBlankAnswer: React.Dispatch<React.SetStateAction<string>>;
+  setBlankAnswer: React.Dispatch<React.SetStateAction<string>>;  // setBlankAnswer関数を受け取る
 };
 
 const blank = "_____";
 
-const BlankAnswerInput = ({ answer, setBlankAnswer }: Props) => {
-  const keywords = React.useMemo(() => {
-    const words = keyword_extractor.extract(answer, {
-      language: "english",
-      remove_digits: true,
-      return_changed_case: false,
-      remove_duplicates: false,
+const BlankAnswerInput = ({ answer, setBlankAnswer }: Props) => { // answerとsetBlankAnswerを受け取る
+  const keywords = React.useMemo(() => {  // keywordsを計算
+    const words = keyword_extractor.extract(answer, { // answerからキーワードを抽出
+      language: "english", //日本語サポートなし
+      remove_digits: true, //数字を削除
+      return_changed_case: false, //大文字を小文字に変換しない
+      remove_duplicates: false,  //重複を削除しない
     });
-    // mix the keywords and pick 2
-    const shuffled = words.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 2);
-  }, [answer]);
 
+    const shuffled = words.sort(() => 0.5 - Math.random()); //キーワードをシャッフル
+    return shuffled.slice(0, 2); //キーワードを2つ返す
+  }, [answer]); //answerが変更された場合に再計算
+
+  // answerWithBlanksは、answerのキーワードをブランクに置き換えた文字列
   const answerWithBlanks = React.useMemo(() => {
-    const answerWithBlanks = keywords.reduce((acc, curr) => {
+    const answerWithBlanks = keywords.reduce((acc, curr) => { 
       return acc.replaceAll(curr, blank);
     }, answer);
+    // setBlankAnswer関数を呼び出して、answerWithBlanksを更新
     setBlankAnswer(answerWithBlanks);
     return answerWithBlanks;
-  }, [answer, keywords, setBlankAnswer]);
+  }, [answer, keywords, setBlankAnswer]); //answer, keywords, setBlankAnswerが変更された場合に再計算
 
   return (
     <div className="flex justify-start w-full mt-4">
       <h1 className="text-xl font-semibold">
         {/* replace the blanks with input elements */}
-        {answerWithBlanks.split(blank).map((part, index) => {
+        {answerWithBlanks.split(blank).map((part, index) => { // answerWithBlanksをブランクで分割
           return (
             <React.Fragment key={index}>
-              {part}
-              {index === answerWithBlanks.split(blank).length - 1 ? (
+               {part}  {/*ブランクの前の部分 */}
+              {index === answerWithBlanks.split(blank).length - 1 ? (  // ブランクの後の部分
                 ""
               ) : (
                 <input
@@ -46,7 +49,7 @@ const BlankAnswerInput = ({ answer, setBlankAnswer }: Props) => {
                   type="text"
                 />
               )}
-            </React.Fragment>
+            </React.Fragment>  // ブランクの後の部分
           );
         })}
       </h1>

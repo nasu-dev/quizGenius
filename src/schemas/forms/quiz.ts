@@ -6,7 +6,7 @@ export const quizCreationSchema = z.object({
   topic: z
     .string()
     .min(3, {
-      message: "お題はワードで入力してください",
+      message: "適切なお題を入力してください",
     })
     .max(50, {
       message: "お題は50文字以下で入力してください",
