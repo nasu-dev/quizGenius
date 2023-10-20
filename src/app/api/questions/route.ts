@@ -1,3 +1,5 @@
+ //api/questions:質問を生成するための APIルート。
+
 import { strict_output } from "@/lib/gpt";
 import { getAuthSession } from "@/lib/nextauth";
 import { getQuestionsSchema } from "@/schemas/questions";

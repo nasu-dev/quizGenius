@@ -52,7 +52,7 @@ export async function POST(req: Request, res: Response) {
 
     console.log("game is created :", game);
     ///ここで止まってる
-    const { data } = await axios.post(`https://localhost:3000/api/questions`, {
+    const { data } = await axios.post(`${process.env.API_URL as string}/api/questions`, {
         amount,
         topic,
         type,
