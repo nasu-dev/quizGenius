@@ -17,17 +17,19 @@ export async function POST(req: Request, res: Response) {
     // もしユーザーセッションがない場合、未ログインのエラーを返す
     // (ログインが必要な場合の処理)
 
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: "You must be logged in to create a game." },
-        {
-          status: 401,
-        }
-      );
-    }
+    // if (!session?.user) {
+    //   console.log("user not logged in");
+    //   return NextResponse.json(
+    //     { error: "You must be logged in to create a game." },
+    //     {
+    //       status: 401,
+    //     }
+    //   );
+    // }
 
     // HTTP リクエストのボディからデータを取得
     const body = await req.json();
+    console.log("questions body :", body);
     const { amount, topic, type } = getQuestionsSchema.parse(body);
     let questions: any;
     // もしタイプが "open_ended" である場合、開放型の質問を生成
