@@ -62,6 +62,7 @@ export async function strict_output(
 
     // OpenAIを使ってレスポンスを得る
     const response = await openai.createChatCompletion({
+  
       temperature: temperature,
       model: model,
       messages: [
@@ -73,6 +74,7 @@ export async function strict_output(
       ],
     });
 
+    console.log("openai.createChatCompletion called");
     let res: string =
       response.data.choices[0].message?.content?.replace(/'/g, '"') ?? "";
 

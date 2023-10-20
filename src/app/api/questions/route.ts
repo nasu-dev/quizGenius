@@ -7,6 +7,7 @@ import { ZodError } from "zod";
 
 // クイズの質問を取得するための API ルート
 export async function POST(req: Request, res: Response) {
+  console.log("questions api called");
   try {
     // ユーザーの認証セッションを取得
     const session = await getAuthSession();

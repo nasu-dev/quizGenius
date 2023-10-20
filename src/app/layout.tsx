@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;  
 }) {
   return (
-    <html lang="ja">
+    <html lang="en">
       <body className={cn(inter.className, "antialiased min-h-screen pt-16")}> 
         <Providers>
           <Navbar />

@@ -13,9 +13,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button, buttonVariants } from "../ui/button";
-import { Input } from "../ui/input";
-import { BookOpen, CopyCheck, Link, LucideLayoutDashboard } from "lucide-react";
+import { Button } from "../ui/button";
+import {   Input } from "../ui/input";
+import { BookOpen, CopyCheck } from "lucide-react";
 import { Separator } from "../ui/separator";
 import axios, { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
@@ -29,11 +29,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import LoadingQuestions from "../LoadingQuestions";
-import { DialogClose } from "../ui/dialog";
+
 
 type Props = {
   topic: string; //トピック名
 };
+
 
 type Input = z.infer<typeof quizCreationSchema>; //入力値の型
 
@@ -46,7 +47,9 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   const { mutate: getQuestions, isLoading } = useMutation({
     //クイズの取得
     mutationFn: async ({ amount, topic, type }: Input) => {
+      console.log("amount ", amount, " topic ", topic, " type ", type)
       const response = await axios.post("/api/game", { amount, topic, type });
+      console.log("response.data ", response.data)
       return response.data;
     },
   });
@@ -62,16 +65,20 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   });
 
   const onSubmit = async (data: Input) => {
+    console.log("data 1", data)
     //クイズの作成
     setShowLoader(true); //ローディング画面の表示
+    // alert(JSON.stringify(data, null, 2))
     getQuestions(data, {
       //クイズの取得
+    
       onError: (error) => {
         //エラー処理
         setShowLoader(false); //ローディング画面の非表示
         if (error instanceof AxiosError) {
           //Axiosのエラー
           if (error.response?.status === 500) {
+            console.log("error2", error.response.data)
             toast({
               //トースト
               title: "Error",
@@ -82,6 +89,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
         }
       },
       onSuccess: ({ gameId }: { gameId: string }) => {
+        console.log("成功 ", gameId)
         //成功時の処理
         setFinishedLoading(true); //ローディング画面の非表示
         setTimeout(() => {
