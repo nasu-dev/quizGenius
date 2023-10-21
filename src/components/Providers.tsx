@@ -14,7 +14,7 @@ const queryClient = new QueryClient(); //クエリクライアントを作成
 const Providers = ({ children }: ThemeProviderProps) => { //childrenを受け取る
   return (
     <QueryClientProvider client={queryClient}> {/* クエリクライアントを提供 */}
-      <NextThemesProvider attribute="class" defaultTheme="system" enableSystem> {/* テーマプロバイダーを提供 */}
+      <NextThemesProvider attribute="class" defaultTheme="light" enableSystem> {/* テーマプロバイダーを提供 */}
         <SessionProvider>{children}</SessionProvider> {/* セッションプロバイダーを提供 */}
       </NextThemesProvider> 
     </QueryClientProvider>

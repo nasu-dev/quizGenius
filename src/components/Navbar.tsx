@@ -10,7 +10,7 @@ import DetailsDialog from "./DetailsDialog";
 const Navbar = async () => { 
   const session = await getAuthSession();  //認証情報を取得
   return (
-    <div className="fixed inset-x-0 top-0 bg-white dark:bg-gray-950 z-[10] h-fit border-b border-zinc-300 py-4 md:py-2">  {/* ナビゲーションバー */}
+    <div className="fixed inset-x-0 top-0 bg-white dark:bg-gray-950 z-[10] border-b border-zinc-300 py-4 md:py-2">  {/* ナビゲーションバー */}
       <div className="flex items-center justify-between h-full gap-2 px-4 md:px-8 mx-auto max-w-7xl">  
         {/* Logo */}
         <Link href={"/"} className="flex items-center gap-2"> 
