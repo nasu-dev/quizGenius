@@ -22,7 +22,7 @@ const HistoryCard = (props: Props) => {
         <History size={28} strokeWidth={2.5} /> {/* 履歴アイコン */}
       </CardHeader>
       <CardContent> {/* カード本文 */}
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground pl-3">
           これまでのクイズ履歴はこちらから確認できます。
         </p>
       </CardContent>

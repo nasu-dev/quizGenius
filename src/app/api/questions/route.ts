@@ -14,19 +14,6 @@ export async function POST(req: Request, res: Response) {
     // ユーザーの認証セッションを取得
     const session = await getAuthSession();
 
-    // もしユーザーセッションがない場合、未ログインのエラーを返す
-    // (ログインが必要な場合の処理)
-
-    // if (!session?.user) {
-    //   console.log("user not logged in");
-    //   return NextResponse.json(
-    //     { error: "You must be logged in to create a game." },
-    //     {
-    //       status: 401,
-    //     }
-    //   );
-    // }
-
     // HTTP リクエストのボディからデータを取得
     const body = await req.json();
     console.log("questions body :", body);
@@ -35,16 +22,19 @@ export async function POST(req: Request, res: Response) {
     // もしタイプが "open_ended" である場合、開放型の質問を生成
     if (type === "open_ended") {
       questions = await strict_output(
-        // あなたは、質問と回答のペアを生成することができる親切なAIです。
+        // あなたは、mcqの質問と回答を生成することができる便利なAIです。
         // 各回答の長さは15語以下でなければなりません。すべての答えと質問のペアをJSON配列に格納してください。
-        "You are a helpful AI that is able to generate a pair of question and answers, the length of each answer should not be more than 15 words, store all the pairs of answers and questions in a JSON array",
+        "You are a helpful AI that is able to generate mcq questions and answers, the length of each answer should not be more than 15 words and should be in English, store all answers and questions and options in a JSON array",
         new Array(amount).fill(
-          // あなたは、${topic}に関する難しい自由形式の質問をランダムに生成しなければなりません。
-          `You are to generate a random hard open-ended questions about ${topic}`
+          // あなたは${topic}`に関する難しいmcq問題をランダムに生成する必要があります。
+          `You are to generate a random mcq question about ${topic} in English`
         ),
         {
-          question: "question",
-          answer: "answer with max length of 15 words", //回答は15ワード以内
+          question: "question", //質問
+          answer: "answer with max length of 15 words", //答え
+          option1: "option1 with max length of 15 words", //選択肢1
+          option2: "option2 with max length of 15 words", //選択肢2
+          option3: "option3 with max length of 15 words", //選択肢3
         }
       );
       // もしタイプが "mcq" である場合、MCQ（多肢選択問題）を生成
@@ -52,10 +42,10 @@ export async function POST(req: Request, res: Response) {
       questions = await strict_output(
         // あなたは、mcqの質問と回答を生成することができる便利なAIです。
         // 各回答の長さは15語以下でなければなりません。すべての答えと質問のペアをJSON配列に格納してください。
-        "You are a helpful AI that is able to generate mcq questions and answers, the length of each answer should not be more than 15 words, store all answers and questions and options in a JSON array",
+        "You are a helpful AI that is able to generate mcq questions and answers, the length of each answer should not be more than 15 words and should be in Japanese, store all answers and questions and options in a JSON array",
         new Array(amount).fill(
           // あなたは${topic}`に関する難しいmcq問題をランダムに生成する必要があります。
-          `You are to generate a random hard mcq question about ${topic}`
+          `You are to generate a random mcq question about ${topic} in Japanese`
         ),
         {
           question: "question", //質問

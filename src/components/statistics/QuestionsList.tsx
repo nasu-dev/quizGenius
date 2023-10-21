@@ -26,9 +26,9 @@ const QuestionsList = ({ questions }: Props) => { //クイズの問題と解答�
           <TableHead>問題と解答</TableHead> 
           <TableHead>あなたの回答</TableHead>
 
-          {questions[0].questionType === "open_ended" && ( //問題の種類がopen_endedの場合
+          {/* {questions[0].questionType === "open_ended" && ( //問題の種類がopen_endedの場合
             <TableHead className="w-[10px] text-right">正答率</TableHead> //テーブルヘッダー
-          )}
+          )} */}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -46,11 +46,6 @@ const QuestionsList = ({ questions }: Props) => { //クイズの問題と解答�
                     <br />
                     <span className="font-semibold">{answer}</span> {/* 解答 */}
                   </TableCell>
-                  {questions[0].questionType === "open_ended" ? ( //問題の種類がopen_endedの場合
-                    <TableCell className={`font-semibold`}> 
-                      {userAnswer} {/* ユーザーの回答 */}
-                    </TableCell>
-                  ) : ( //問題の種類がopen_ended以外の場合
                     <TableCell
                       className={`${
                         isCorrect ? "text-green-600" : "text-red-600"
@@ -58,13 +53,6 @@ const QuestionsList = ({ questions }: Props) => { //クイズの問題と解答�
                     >
                       {userAnswer} {/* ユーザーの回答 */}
                     </TableCell>
-                  )}
-
-                  {percentageCorrect && (  //正確性がある場合
-                    <TableCell className="text-right">  {/* テーブルセル */}
-                      {percentageCorrect} % {/* 正確性 */}
-                    </TableCell>
-                  )}
                 </TableRow>
               );
             }

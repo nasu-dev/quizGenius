@@ -19,9 +19,12 @@ const DetailsDialog = (props: Props) => {
   return (
     <Dialog>
       {/* ダイアログトリガー */}
-      <DialogTrigger>
-        <span className="flex items-center ml-2 pl-3 pr-2 py-1.5 text-white rounded-md bg-slate-800"> {/* ボタン */}
-          はじめに
+      <DialogTrigger className="flex items-center">
+        <span className="flex items-center md:m-2 pl-1 pr-2  py-2 md:p-2 md:pl-3 text-white rounded-md bg-slate-800">
+          {" "}
+          {/* ボタン */}
+          <span className="hidden md:inline">はじめに</span>{" "}
+          {/* スマートフォン画面では非表示 */}
           <HelpCircle className="w-5 h-5 ml-1" /> {/* ヘルプアイコン */}
         </span>
       </DialogTrigger>
@@ -54,8 +57,10 @@ const DetailsDialog = (props: Props) => {
               </p>
             </div>
             <p className="my-4 mt-4 break-words">
-              知識とエンターテイメントの新たな次元へ。<br />
-              <span className="font-semibold">QuizGenius</span>は最新AI技術を駆使したAIクイズ自動生成プラットフォームです。
+              知識とエンターテイメントの新たな次元へ。
+              <br />
+              <span className="font-semibold">QuizGenius</span>
+              は最新AI技術を駆使したAIクイズ自動生成プラットフォームです。
               人工知能があなたの興味に基づいたクイズを分析し、あなただけのオリジナルクイズを提供します！
               これまでにはない革新的なクイズ体験を楽しみましょう！
             </p>

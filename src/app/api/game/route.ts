@@ -23,9 +23,7 @@ export async function POST(req: Request, res: Response) {
       );
     }
     const body = await req.json();
-    console.log("game body :", body);
     const { topic, type, amount } = quizCreationSchema.parse(body);
-    console.log("topic :", topic);
     const game = await prisma.game.create({
       data: {
         gameType: type,
@@ -35,77 +33,96 @@ export async function POST(req: Request, res: Response) {
       },
     });
 
-    // await prisma.topic_count.upsert({
-    //     where: {
-    //         topic,
-    //     },
-    //     create: {
-    //         topic,
-    //         count: 1,
-    //     },
-    //     update: {
-    //         count: {
-    //             increment: 1,
-    //         },
-    //     },
-    // });
+    await prisma.topic_count.upsert({
+      where: {
+        topic,
+      },
+      create: {
+        topic,
+        count: 1,
+      },
+      update: {
+        count: {
+          increment: 1,
+        },
+      },
+    });
 
-    console.log("game is created :", game);
-    ///ここで止まってる
-    const { data } = await axios.post(`${process.env.API_URL as string}/api/questions`, {
+    const { data } = await axios.post(
+      `${process.env.API_URL as string}/api/questions`,
+      {
         amount,
         topic,
         type,
-    });
+      }
+    );
 
     console.log("api/questions :", amount, topic, type);
 
+    let manyData;
     if (type === "mcq") {
-      type mcqQuestion = {
+      type JPquestion = {
         question: string;
         answer: string;
         option1: string;
         option2: string;
         option3: string;
       };
-      console.log("mcq data :", data);
-      let manyData = data.questions.map((question: mcqQuestion) => {
+      console.log("JPdata :", data);
+      manyData = data.questions.map((JPquestion: JPquestion) => {
         let options = [
-          question.option1,
-          question.option2,
-          question.option3,
-          question.answer,
+          JPquestion.option1,
+          JPquestion.option2,
+          JPquestion.option3,
+          JPquestion.answer,
         ];
+        console.log("options1 :", options);
         options = options.sort(() => Math.random() - 0.5);
-        console.log(options);
         return {
-          question: question.question,
-          answer: question.answer,
+          question: JPquestion.question,
+          answer: JPquestion.answer,
           options: JSON.stringify(options),
           gameId: game.id,
           questionType: "mcq",
         };
       });
+      console.log("manyData :", manyData);
       await prisma.question.createMany({
         data: manyData,
       });
     } else if (type === "open_ended") {
-      type openQuestion = {
+      type ENquestion = {
         question: string;
         answer: string;
+        option1: string;
+        option2: string;
+        option3: string;
       };
-      let manyData = data.questions.map((question: openQuestion) => {
+      console.log("ENdata :", data);
+      manyData = data.questions.map((ENquestion: ENquestion) => {
+        let options = [
+          ENquestion.option1,
+          ENquestion.option2,
+          ENquestion.option3,
+          ENquestion.answer,
+        ];
+        console.log("options3 :", options);
+        options = options.sort(() => Math.random() - 0.5);
         return {
-          question: question.question,
-          answer: question.answer,
+          question: ENquestion.question,
+          answer: ENquestion.answer,
+          options: JSON.stringify(options),
           gameId: game.id,
           questionType: "open_ended",
         };
       });
-      await prisma.question.createMany({
-        data: manyData,
-      });
     }
+    console.log("manyData :", manyData);
+    await prisma.question.createMany({
+      data: manyData,
+    });
+  
+  
     return NextResponse.json(
       {
         gameId: game.id,

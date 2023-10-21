@@ -20,7 +20,7 @@ const QuizMeCard = (props: Props) => {
         <BrainCircuit size={28} strokeWidth={2.5} /> {/* 脳アイコン */}
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground pl-3">
         好きなお題を選んでオリジナルクイズに挑戦しましょう！
         </p>
       </CardContent>

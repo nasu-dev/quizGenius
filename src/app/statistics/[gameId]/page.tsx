@@ -33,7 +33,7 @@ const Statistics = async ({ params: { gameId } }: Props) => { // gameIdを受け
 
   let accuracy: number = 0; //正答率
 
-  if (game.gameType === "mcq") { // クイズの種類がmcqの場合
+  // if (game.gameType === "mcq") { // クイズの種類がmcqの場合
     let totalCorrect = game.questions.reduce((acc, question) => { //正答数を計算
       if (question.isCorrect) { //正答の場合
         return acc + 1; //正答数をインクリメント
@@ -41,13 +41,13 @@ const Statistics = async ({ params: { gameId } }: Props) => { // gameIdを受け
       return acc; //正答数を返す
     }, 0);
     accuracy = (totalCorrect / game.questions.length) * 100; //正答率を計算
-  } else if (game.gameType === "open_ended") { // クイズの種類がopen_endedの場合
-    let totalPercentage = game.questions.reduce((acc, question) => { //正答率を計算
-      return acc + (question.percentageCorrect ?? 0); //正答率を返す
-    }, 0);
-    accuracy = totalPercentage / game.questions.length; //正答率を計算
-  }
-  accuracy = Math.round(accuracy * 100) / 100; //正答率を四捨五入
+  // } else if (game.gameType === "open_ended") { // クイズの種類がopen_endedの場合
+  //   let totalPercentage = game.questions.reduce((acc, question) => { //正答率を計算
+  //     return acc + (question.percentageCorrect ?? 0); //正答率を返す
+  //   }, 0);
+  //   accuracy = totalPercentage / game.questions.length; //正答率を計算
+  // }
+  // accuracy = Math.round(accuracy * 100) / 100; //正答率を四捨五入
 
   return (
     <>
@@ -55,7 +55,7 @@ const Statistics = async ({ params: { gameId } }: Props) => { // gameIdを受け
         <div className="flex items-center justify-between space-y-2"> 
           <h2 className="text-3xl font-bold tracking-tight">サマリー</h2> 
           <div className="flex items-center space-x-2">
-            <Link href="/dashboard" className={buttonVariants()}>
+            <Link href="/dashboard" className={buttonVariants({ variant: "outline" })}>
               <LucideLayoutDashboard className="mr-2" />
               ダッシュボードに戻る
             </Link>

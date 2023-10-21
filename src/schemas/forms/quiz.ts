@@ -5,7 +5,7 @@ export const quizCreationSchema = z.object({
   // お題（テーマ）のスキーマ
   topic: z
     .string()
-    .min(3, {
+    .min(2, {
       message: "適切なお題を入力してください",
     })
     .max(50, {

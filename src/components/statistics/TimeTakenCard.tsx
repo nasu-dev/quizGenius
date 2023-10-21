@@ -17,7 +17,7 @@ const TimeTakenCard = ({ timeEnded, timeStarted }: Props) => {
         <Hourglass /> {/* 砂時計アイコン */}
       </CardHeader> 
       <CardContent> {/* カード本文 */}
-        <div className="text-sm font-medium"> {/* テキスト */}
+        <div className="text-sm font-medium pl-3"> {/* テキスト */}
           {formatTimeDelta(differenceInSeconds(timeEnded, timeStarted))} {/* 時間差 */}
         </div>
       </CardContent>

@@ -27,7 +27,7 @@ const HotTopicsCard = async (props: Props) => {
           気になるトピックをクリックしてクイズを作成しましょう！
         </CardDescription> 
       </CardHeader>
-      <CardContent className="pl-2"> {/* カード本文 */}
+      <CardContent className="pl-2 cursor-pointer"> {/* カード本文 */}
         <WordCloud formattedTopics={formattedTopics} /> {/* ワードクラウド */}
       </CardContent>
     </Card>

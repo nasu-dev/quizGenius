@@ -6,12 +6,12 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-// ユーザー入力と出力フォーマットを与えると、出力を生成する。
+// OpenAIを使って出力を生成する。
 interface OutputFormat {
   [key: string]: string | string[] | OutputFormat;
 }
 
-// ユーザー入力と出力フォーマットを与えると、出力を生成する。
+// 出力フォーマットに基づいて、OpenAIを使って出力を生成する。
 export async function strict_output(
   system_prompt: string,  
   user_prompt: string | string[],  
@@ -39,7 +39,7 @@ export async function strict_output(
   let error_msg: string = "";
 
   for (let i = 0; i < num_tries; i++) {
-    //以下をjson形式で出力する。
+    // 出力フォーマットに<or>の動的要素が含まれている場合、動的要素を扱うようにプロンプトに追加する。
       let output_format_prompt: string = `\nYou are to output the following in json format: ${JSON.stringify(
         output_format 
         // 出力フィールドに引用符やエスケープ文字を入れないでください。
@@ -76,11 +76,13 @@ export async function strict_output(
 
     console.log("openai.createChatCompletion called");
     let res: string =
+    // レスポンスの最初の選択肢を取得する。
       response.data.choices[0].message?.content?.replace(/'/g, '"') ?? "";
-
+      console.log("openai.createChatCompletion response:", res);
     // テキスト中のアポストロフィーを置き換えないようにする。
     res = res.replace(/(\w)"(\w)/g, "$1'$2");
-
+    console.log("openai.createChatCompletion response after replace:", res);
+    
     if (verbose) {
       console.log(
         "System prompt:",
@@ -92,6 +94,7 @@ export async function strict_output(
 
     // try-catchブロックで出力形式が守られていることを確認する。
     try {
+      
       let output: any = JSON.parse(res);
 
       if (list_input) {
@@ -144,7 +147,7 @@ export async function strict_output(
       }
 
       return list_input ? output : output[0];
-    } catch (e) {
+    } catch (e) { //出力形式が正しくない場合、エラーメッセージを生成する。
       error_msg = `\n\nResult: ${res}\n\nError message: ${e}`;
       console.log("An exception occurred:", e);
       console.log("Current invalid json format:", res);

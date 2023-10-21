@@ -13,33 +13,33 @@ const ResultsCard = ({ accuracy }: Props) => { //結果カード
         <Award /> {/* 賞アイコン */}
       </CardHeader> 
       <CardContent className="flex flex-col items-center justify-center h-3/5"> {/* カード本文 */}
-        {accuracy > 75 ? ( //正答率が75%以上の場合
+        {accuracy >= 75 ? ( //正答率が75%以上の場合
           <>
             <Trophy className="mr-4" stroke="gold" size={50} /> {/* 金色のトロフィーアイコン */}
-            <div className="flex flex-col text-2xl font-semibold text-yellow-400"> {/* テキスト */}
-              <span className="">凄いです!</span> {/* テキスト */}
+            <div className="flex flex-col text-2xl font-semibold text-center text-yellow-400"> {/* テキスト */}
+              <span className="">合格です!</span> {/* テキスト */}
               <span className="text-sm text-center text-black opacity-50"> {/* テキスト */}
-                {"> 75% accuracy"}
+                {"おめでとうございます!"}
               </span>
             </div>
           </>
-        ) : accuracy > 25 ? ( //正答率が25%以上の場合
+        ) : accuracy >=40 ? ( //正答率が40%以上の場合
           <>
             <Trophy className="mr-4" stroke="silver" size={50} /> {/* 銀色のトロフィーアイコン */}
-            <div className="flex flex-col text-2xl font-semibold text-stone-400"> {/* テキスト */}
-              <span className="">頑張りました!</span>
+            <div className="flex flex-col text-2xl font-semibold text-center text-stone-400"> {/* テキスト */}
+              <span className="text-center">ナイスチャレンジ!</span>
               <span className="text-sm text-center text-black opacity-50"> 
-                {"> 25% accuracy"} 
+                {"よく頑張りました！"} 
               </span>
             </div>
           </>
         ) : (
           <>
             <Trophy className="mr-4" stroke="brown" size={50} />
-            <div className="flex flex-col text-2xl font-semibold text-yellow-800">
-              <span className="">ナイスチャレンジ!</span>
+            <div className="flex flex-col text-2xl font-semibold text-center  text-yellow-800">
+              <span className="">不合格です・・</span>
               <span className="text-sm text-center text-black opacity-50">
-                {"< 25% accuracy"}
+                {"もう少し頑張りましょう！"}
               </span>
             </div>
           </>

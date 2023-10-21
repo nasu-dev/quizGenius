@@ -19,7 +19,7 @@ const WordCloud = ({ formattedTopics }: Props) => { //ワードクラウド
       <D3WordCloud
         data={formattedTopics} //トピック一覧
         height={400} //高さ
-        font='Times New Roman'
+        font='Times New Roman, Times, serif'
         fontSize={fontSizeMapper} //フォントサイズ
         rotate={0} //回転
         padding={10} //パディング

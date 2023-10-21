@@ -1,4 +1,4 @@
-import OpenEnded from "@/components/OpenEnded";
+import Question from "@/components/QustionCreation";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { redirect } from "next/navigation";
@@ -10,9 +10,9 @@ type Props = {
   };
 };
 
-const OpenEndedPage = async ({ params: { gameId } }: Props) => { // gameIdを受け取る
-  const session = await getAuthSession(); // セッションを取得
-  if (!session?.user) { // セッションがない場合は、ホームページにリダイレクト
+const MCQPage = async ({ params: { gameId } }: Props) => {
+  const session = await getAuthSession();
+  if (!session?.user) {
     return redirect("/");
   }
 
@@ -21,20 +21,21 @@ const OpenEndedPage = async ({ params: { gameId } }: Props) => { // gameIdを受
     where: {
       id: gameId,
     },
-    include: {  // includeオプションは、関連するデータを取得するために使用される
-      questions: { 
+    include: {
+      // includeオプションは、関連するデータを取得するために使用される
+      questions: {
         select: {
           id: true,
           question: true,
-          answer: true,
+          options: true,
         },
       },
     },
   });
-  if (!game || game.gameType === "mcq") {
+  if (!game || game.gameType === "open_ended") {
     return redirect("/quiz");
   }
-  return <OpenEnded game={game} />; // OpenEndedコンポーネントにgameオブジェクトを渡す
+  return <Question game={game} />; // MCQコンポーネントにgameオブジェクトを渡す
 };
 
-export default OpenEndedPage;
+export default MCQPage;

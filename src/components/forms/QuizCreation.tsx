@@ -14,8 +14,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "../ui/button";
-import {   Input } from "../ui/input";
-import { BookOpen, CopyCheck } from "lucide-react";
+import { Input } from "../ui/input";
+import {
+  BookOpen,
+  CopyCheck,
+  Flower,
+  Globe2,
+  LucideLayoutDashboard,
+} from "lucide-react";
 import { Separator } from "../ui/separator";
 import axios, { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
@@ -25,16 +31,16 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import LoadingQuestions from "../LoadingQuestions";
-
+import Link from "next/link";
 
 type Props = {
   topic: string; //トピック名
 };
-
 
 type Input = z.infer<typeof quizCreationSchema>; //入力値の型
 
@@ -47,9 +53,9 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   const { mutate: getQuestions, isLoading } = useMutation({
     //クイズの取得
     mutationFn: async ({ amount, topic, type }: Input) => {
-      console.log("amount ", amount, " topic ", topic, " type ", type)
+      console.log("amount ", amount, " topic ", topic, " type ", type);
       const response = await axios.post("/api/game", { amount, topic, type });
-      console.log("response.data ", response.data)
+      console.log("response.data ", response.data);
       return response.data;
     },
   });
@@ -65,20 +71,20 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   });
 
   const onSubmit = async (data: Input) => {
-    console.log("data 1", data)
+    console.log("data 1", data);
     //クイズの作成
     setShowLoader(true); //ローディング画面の表示
     // alert(JSON.stringify(data, null, 2))
     getQuestions(data, {
       //クイズの取得
-    
+
       onError: (error) => {
         //エラー処理
         setShowLoader(false); //ローディング画面の非表示
         if (error instanceof AxiosError) {
           //Axiosのエラー
           if (error.response?.status === 500) {
-            console.log("error2", error.response.data)
+            console.log("Axios-error", error.response.data);
             toast({
               //トースト
               title: "Error",
@@ -89,17 +95,19 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
         }
       },
       onSuccess: ({ gameId }: { gameId: string }) => {
-        console.log("成功 ", gameId)
+        console.log("Json変換成功");
         //成功時の処理
         setFinishedLoading(true); //ローディング画面の非表示
+        console.log("ローディング画面非表示");
         setTimeout(() => {
-          //2秒後にクイズページへのルーティング
-          if (form.getValues("type") === "mcq") {
-            router.push(`/play/mcq/${gameId}`);
-          } else if (form.getValues("type") === "open_ended") {
-            router.push(`/play/open-ended/${gameId}`);
-          }
-        }, 2000);
+          //1秒後にクイズページへのルーティング
+          // if (form.getValues("type") === "mcq") {
+            router.push(`/play/question/${gameId}`);
+          // } else if (form.getValues("type") === "open_ended") {
+          //   router.push(`/play/open-ended/${gameId}`);
+          // }
+        }, 1000);
+        console.log("ルーティング完了");
       },
     });
   };
@@ -111,7 +119,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   }
 
   return (
-    <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-2/3 lg:w-1/2">
+    <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-2/3  md:w-1/2 lg:w-1/3">
       {" "}
       {/* メインコンテンツ */}
       <Card>
@@ -171,36 +179,57 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                 )}
               />
 
-              <div className="flex justify-between">
-                <Button
-                  variant={
-                    form.getValues("type") === "mcq" ? "default" : "secondary" //クイズの種類がmcqの場合はdefault、open_endedの場合はsecondary
-                  }
-                  className="w-1/2 rounded-none rounded-l-lg" //クイズの種類がmcqの場合は左丸、open_endedの場合は右丸
-                  onClick={() => {
-                    form.setValue("type", "mcq");
-                  }}
-                  type="button"
-                >
-                  <CopyCheck className="w-4 h-4 mr-2" /> 選択式
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>言語モード</FormLabel>
+                    <div className="flex justify-between">
+                      <Button
+                        variant={
+                          form.getValues("type") === "mcq"
+                            ? "default"
+                            : "secondary" //クイズの種類がmcqの場合はdefault、open_endedの場合はsecondary
+                        }
+                        className="w-1/2 rounded-none rounded-l-lg" //クイズの種類がmcqの場合は左丸、open_endedの場合は右丸
+                        onClick={() => {
+                          form.setValue("type", "mcq");
+                        }}
+                        type="button"
+                      >
+                        <Flower className="w-4 h-4 mr-2" /> Japanese
+                      </Button>
+                      <Separator orientation="vertical" />
+                      <Button
+                        variant={
+                          form.getValues("type") === "open_ended" //クイズの種類がopen_endedの場合はdefault、mcqの場合はsecondary
+                            ? "default"
+                            : "secondary"
+                        }
+                        className="w-1/2 rounded-none rounded-r-lg"
+                        onClick={() => form.setValue("type", "open_ended")}
+                        type="button"
+                      >
+                        {/* <BookOpen className="w-4 h-4 mr-2" /> 英語 */}
+                        <Globe2 className="w-4 h-4 mr-2" /> English
+                      </Button>
+                    </div>
+                    <FormDescription>
+                      選択した言語でクイズが生成されます
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <CardFooter className="flex justify-between px-1">
+                <Button variant="outline">
+                  <Link href="/">キャンセル</Link>
                 </Button>
-                <Separator orientation="vertical" />
-                <Button
-                  variant={
-                    form.getValues("type") === "open_ended" //クイズの種類がopen_endedの場合はdefault、mcqの場合はsecondary
-                      ? "default"
-                      : "secondary"
-                  }
-                  className="w-1/2 rounded-none rounded-r-lg"
-                  onClick={() => form.setValue("type", "open_ended")}
-                  type="button"
-                >
-                  <BookOpen className="w-4 h-4 mr-2" /> 穴埋め式
+                <Button disabled={isLoading} type="submit">
+                  自動生成する
                 </Button>
-              </div>
-              <Button disabled={isLoading} type="submit">
-                自動生成する
-              </Button>
+              </CardFooter>
             </form>
           </Form>
         </CardContent>

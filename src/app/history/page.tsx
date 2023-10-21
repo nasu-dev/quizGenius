@@ -19,10 +19,10 @@ const History = async (props: Props) => {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl font-bold">History</CardTitle>
-            <Link className={buttonVariants()} href="/dashboard">
+            <CardTitle className="text-2xl font-bold">履歴一覧</CardTitle>
+            <Link className={buttonVariants({ variant: "outline" })} href="/dashboard">
               <LucideLayoutDashboard className="mr-2" />
-              ダッシュボードに戻る
+              戻る
             </Link>
           </div>
         </CardHeader>
