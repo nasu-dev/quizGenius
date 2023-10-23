@@ -9,7 +9,7 @@ type Props = {
 };
 
 const fontSizeMapper = (word: { value: number }) =>  
-  Math.log2(word.value) * 10 + 15; //フォントサイズ
+  Math.log2(word.value) * 10 + 13; //フォントサイズ
 
 const WordCloud = ({ formattedTopics }: Props) => { //ワードクラウド
   const theme = useTheme(); //テーマ
