@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import { Input } from "../ui/input";
 import {
   BookOpen,
@@ -21,6 +21,7 @@ import {
   Flower,
   Globe2,
   LucideLayoutDashboard,
+  XCircle,
 } from "lucide-react";
 import { Separator } from "../ui/separator";
 import axios, { AxiosError } from "axios";
@@ -71,7 +72,6 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
   });
 
   const onSubmit = async (data: Input) => {
-    console.log("data 1", data);
     //クイズの作成
     setShowLoader(true); //ローディング画面の表示
     // alert(JSON.stringify(data, null, 2))
@@ -95,19 +95,14 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
         }
       },
       onSuccess: ({ gameId }: { gameId: string }) => {
-        console.log("Json変換成功");
+
         //成功時の処理
         setFinishedLoading(true); //ローディング画面の非表示
-        console.log("ローディング画面非表示");
+
         setTimeout(() => {
-          //1秒後にクイズページへのルーティング
-          // if (form.getValues("type") === "mcq") {
-            router.push(`/play/question/${gameId}`);
-          // } else if (form.getValues("type") === "open_ended") {
-          //   router.push(`/play/open-ended/${gameId}`);
-          // }
-        }, 1000);
-        console.log("ルーティング完了");
+          //クイズページへのルーティング
+          router.push(`/play/question/${gameId}`);
+        }, 300);
       },
     });
   };
@@ -126,7 +121,17 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
         {" "}
         {/* カード */}
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">クイズ生成</CardTitle>
+          <div className="flex justify-between">
+            <CardTitle className="text-2xl font-bold text-center">
+              クイズ生成
+            </CardTitle>
+            <Link
+              className={buttonVariants({ variant: "link" })}
+              href="/dashboard"
+            >
+              <XCircle className="mx-0" />
+            </Link>
+          </div>
           <CardDescription>トピックを選んでください</CardDescription>
         </CardHeader>
         <CardContent>
@@ -222,10 +227,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                   </FormItem>
                 )}
               />
-              <CardFooter className="flex justify-between px-1">
-                <Button variant="outline">
-                  <Link href="/">キャンセル</Link>
-                </Button>
+              <CardFooter className="mx-0 px-0">
                 <Button disabled={isLoading} type="submit">
                   自動生成する
                 </Button>

@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Github, HelpCircle, Linkedin, Youtube } from "lucide-react";
+import { Github, HelpCircle, Info, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,13 +19,11 @@ const DetailsDialog = (props: Props) => {
   return (
     <Dialog>
       {/* ダイアログトリガー */}
-      <DialogTrigger className="flex items-center">
-        <span className="flex items-center md:m-2 pl-1 pr-2  py-2 md:p-2 md:pl-3 text-white rounded-md bg-slate-800">
+      <DialogTrigger className="flex items-center bg-none">
+        <span className="flex items-center justify-center h-9 w-9 px-auto rounded-md border hover:bg-accent">
           {" "}
           {/* ボタン */}
-          <span className="hidden md:inline">はじめに</span>{" "}
-          {/* スマートフォン画面では非表示 */}
-          <HelpCircle className="w-5 h-5 ml-1" /> {/* ヘルプアイコン */}
+          <Info className="w-5 h-5" />
         </span>
       </DialogTrigger>
 

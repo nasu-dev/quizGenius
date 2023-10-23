@@ -60,68 +60,34 @@ export async function POST(req: Request, res: Response) {
     console.log("api/questions :", amount, topic, type);
 
     let manyData;
-    if (type === "mcq") {
-      type JPquestion = {
+      type question = {
         question: string;
         answer: string;
         option1: string;
         option2: string;
         option3: string;
       };
-      console.log("JPdata :", data);
-      manyData = data.questions.map((JPquestion: JPquestion) => {
+
+      manyData = data.questions.map((question: question) => {
         let options = [
-          JPquestion.option1,
-          JPquestion.option2,
-          JPquestion.option3,
-          JPquestion.answer,
+          question.option1,
+          question.option2,
+          question.option3,
+          question.answer,
         ];
-        console.log("options1 :", options);
-        options = options.sort(() => Math.random() - 0.5);
         return {
-          question: JPquestion.question,
-          answer: JPquestion.answer,
+          question: question.question,
+          answer: question.answer,
           options: JSON.stringify(options),
           gameId: game.id,
           questionType: "mcq",
         };
       });
-      console.log("manyData :", manyData);
-      await prisma.question.createMany({
-        data: manyData,
-      });
-    } else if (type === "open_ended") {
-      type ENquestion = {
-        question: string;
-        answer: string;
-        option1: string;
-        option2: string;
-        option3: string;
-      };
-      console.log("ENdata :", data);
-      manyData = data.questions.map((ENquestion: ENquestion) => {
-        let options = [
-          ENquestion.option1,
-          ENquestion.option2,
-          ENquestion.option3,
-          ENquestion.answer,
-        ];
-        console.log("options3 :", options);
-        options = options.sort(() => Math.random() - 0.5);
-        return {
-          question: ENquestion.question,
-          answer: ENquestion.answer,
-          options: JSON.stringify(options),
-          gameId: game.id,
-          questionType: "open_ended",
-        };
-      });
-    }
-    console.log("manyData :", manyData);
+    
     await prisma.question.createMany({
       data: manyData,
     });
-  
+ 
   
     return NextResponse.json(
       {

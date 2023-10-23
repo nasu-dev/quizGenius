@@ -34,7 +34,7 @@ const RecentActivityCard = async (props: Props) => { //最近のアクティビ�
         良い調子です！これまで{games_count} 個のクイズに挑戦しました！
         </CardDescription>
       </CardHeader>
-      <CardContent className="ml-8 max-h-[330px] overflow-scroll"> {/* カード本文 */}
+      <CardContent className="mt-0 md:mt-4 ml-8 max-h-[325px] overflow-scroll hidden-scrollbar"> {/* カード本文 */}
         <HistoryComponent limit={10} userId={session.user.id} /> {/* 履歴コンポーネント */}
       </CardContent>
     </Card>

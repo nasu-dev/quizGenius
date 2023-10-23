@@ -9,15 +9,18 @@ type Props = {
 };
 
 const fontSizeMapper = (word: { value: number }) =>  
-  Math.log2(word.value) * 10 + 20; //フォントサイズ
+  Math.log2(word.value) * 10 + 15; //フォントサイズ
 
 const WordCloud = ({ formattedTopics }: Props) => { //ワードクラウド
   const theme = useTheme(); //テーマ
   const router = useRouter(); //ルーター
+
+  // 最初の20個の単語を選択
+  const limitedTopics = formattedTopics.slice(0, 30);
   return (
     <>
       <D3WordCloud
-        data={formattedTopics} //トピック一覧
+        data={limitedTopics} //トピック一覧
         height={400} //高さ
         font='Times New Roman, Times, serif'
         fontSize={fontSizeMapper} //フォントサイズ
