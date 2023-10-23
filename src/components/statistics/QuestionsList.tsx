@@ -19,7 +19,6 @@ type Props = {
 const QuestionsList = ({ questions }: Props) => { //クイズの問題と解答を表示
   return (
     <Table className="mt-4"> {/* テーブル */}
-      <TableCaption>End of list.</TableCaption> {/* テーブルのキャプション */}
       <TableHeader> {/* テーブルヘッダー */}
         <TableRow> {/* テーブル行 */}
           <TableHead className="w-[10px]">No.</TableHead> {/* テーブルヘッダー */}

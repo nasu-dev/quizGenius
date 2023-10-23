@@ -1,7 +1,7 @@
 import { buttonVariants } from "@/components/ui/button";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
-import { ChevronLeft, Home, LucideLayoutDashboard } from "lucide-react";
+import { ChevronLeft, Home, LucideLayoutDashboard, RefreshCcw, RefreshCw } from "lucide-react";
 import Link from "next/link";
 
 import { redirect } from "next/navigation";
@@ -67,6 +67,13 @@ const Statistics = async ({ params: { gameId } }: Props) => {
         >
           <ChevronLeft className="m-0 md:mr-2" />
           <span className="hidden md:inline">履歴一覧に戻る</span>
+        </Link>
+        <Link
+          href={"/quiz?topic=" + game.topic}
+          className={buttonVariants({ variant: "outline" })}
+        >
+          <RefreshCw className="m-0 md:mr-2"/>
+          <span className="hidden md:inline">もう一度挑戦する</span>
         </Link>
         <Link
           href="/dashboard"
