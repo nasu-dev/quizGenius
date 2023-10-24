@@ -35,7 +35,7 @@ export default async function Home() {
           )}
         </p>
 
-        <div className="mt-8 flex justify-start gap-x-10">
+        <div className="mt-8 flex justify-center md:justify-start gap-x-6 md:gap-x-10">
           <SignInButton text="無料で始める" />
           <Link
             className="ml-1 underline"
