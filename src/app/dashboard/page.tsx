@@ -21,7 +21,7 @@ const Dasboard = async (props: Props) => {
   }
 
   return (
-    <main className="pt-4 px-8 mx-auto max-w-7xl"> {/* メインコンテンツ */}
+    <main className="pt-8 px-8 mx-auto max-w-7xl"> {/* メインコンテンツ */}
       <div className="flex items-center"> {/* ヘッダー */}
         <h2 className="mr-2 text-3xl font-bold tracking-tight"> {/* ヘッダータイトル */}
           ダッシュボード

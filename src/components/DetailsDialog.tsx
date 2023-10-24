@@ -12,10 +12,12 @@ import {
 import { Github, HelpCircle, Info, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useBudouX } from "../lib/useBudouX";
 
 type Props = {};
 
 const DetailsDialog = (props: Props) => {
+  const { parse } = useBudouX();
   return (
     <Dialog>
       {/* ダイアログトリガー */}
@@ -28,14 +30,16 @@ const DetailsDialog = (props: Props) => {
       </DialogTrigger>
 
       {/* ダイアログコンテンツ */}
-      <DialogContent className="w-[70vw] max-w-[100vw] md:w-[50vw]">
+      <DialogContent className="w-[70vw] max-w-[100vw] md:w-[50vw] ">
         {/* ダイアログヘッダー */}
         <DialogHeader>
-          <DialogTitle className="text-2xl">QuizGeniusへようこそ!</DialogTitle>
+          <DialogTitle className="text-2xl text-center md:text-start mt-4">
+            QuizGeniusへようこそ!
+          </DialogTitle>
           {/* ダイアログ詳細 */}
           <DialogDescription>
             <div className="flex items-center justify-center sm:justify-start gap-3 my-2">
-              <p className="flex items-center">
+              <p className="flex items-center justify-center">
                 <Github className="w-5 h-5" />
                 <Link
                   className="ml-1 underline"
@@ -54,13 +58,13 @@ const DetailsDialog = (props: Props) => {
                 </Link>
               </p>
             </div>
-            <p className="my-4 mt-4 break-words">
-              知識とエンターテイメントの新たな次元へ。
+            <p className="my-4 mt-4 break-words text-center md:text-start ">
+              AIが導く新時代のクイズエンターテインメント誕生。
               <br />
               <span className="font-semibold">QuizGenius</span>
-              は最新AI技術を駆使したAIクイズ自動生成プラットフォームです。
-              人工知能があなたの興味に基づいたクイズを分析し、あなただけのオリジナルクイズを提供します！
-              これまでにはない革新的なクイズ体験を楽しみましょう！
+              {parse(
+                "は、最新のAI技術を駆使した新しいクイズアプリです。あなたの興味に基づいて、人工知能がオリジナル問題を生成します。さっそく挑戦してみましょう。"
+              )}
             </p>
             <hr />
             <p className="my-4 font-semibold">
