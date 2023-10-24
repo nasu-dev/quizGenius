@@ -1,59 +1,51 @@
 import SignInButton from "@/components/SignInButton";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import { useBudouX } from "../lib/useBudouX";
 
 export default async function Home() {
   const session = await getServerSession();
   if (session?.user) {
     redirect("/dashboard");
   }
+
+  const { parse } = useBudouX();
+
   return (
-    <div className="flex-row justify-center items-center mx-auto">
-     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        QuizGeniusへようこそ
+    <div className="min-h-[70vh] flex flex-col md:flex-row md:justify-between items-center md:mx-32 mx-5 mt-10">
+      <div className="md:w-2/4 text-center md:text-left mb-6">
+        <h4 className="text-lg md:text-xl font-semibold tracking-tight mb-2 bg-gradient-to-r from-slate-500 to-slate-800 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent pl-1">
+          QuizGenius powered by Open AI
+        </h4>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-snug bg-gradient-to-r from-slate-600 to-slate-800 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+          新しいクイズ体験、
+          <br />
+          はじまります。
         </h1>
-      <p className="leading-7 [&:not(:first-child)]:mt-6">
-        QuizGeniusはQuizGeniusは最新AI技術を駆使したAIクイズ自動生成プラットフォームです。さっそく始めましょう!
-      </p>
+        <p className="text-muted-foreground mt-3 md:mt-5 text-center md:text-start mb-2 max-w-md mx-auto md:mx-0 text-sm ">
+          {parse("AIが導く新時代のクイズエンターテインメント誕生。")}
+        </p>
+        <p className="text-muted-foreground mt-3 md:mt-5 text-center md:text-start mb-4 max-w-md mx-auto md:mx-0 text-sm px-2 md:pl-0 md:pr-4">
+          {parse(
+            "QuizGeniusは、最新のAI技術を駆使した新しいクイズアプリです。あなたのお好きなお題を入力すると、人工知能が自動で入力を分析し、世界であなただけのオリジナル問題を生成します。これまでにない革新的なクイズの世界に足を踏み入れ、知識と楽しさを融合したエンターテイメントに挑戦してみましょう。"
+          )}
+        </p>
+
+        <div className="mt-8">
           <SignInButton text="無料で始める" />
+        </div>
+      </div>
+
+      <div className="imageContainer text-center">
+        <Image
+          src="/heroSection.svg" // 画像のパスを修正
+          alt="heroSection"
+          width={500} // パソコン画面用のサイズ
+          height={400} // パソコン画面用のサイズ
+          className="max-w-sm mx-auto md:max-w-full" // レスポンシブなクラス名に修正
+        />
+      </div>
     </div>
-
-
-  //   <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
-  //   <div className="flex flex-wrap items-center mx-auto max-w-7xl">
-  //     <div className="w-full lg:max-w-lg lg:w-1/2 rounded-xl">
-  //       <div>
-  //         <div className="relative w-full max-w-lg">
-  //           <div className="absolute top-0 rounded-full bg-violet-300 -left-4 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-
-  //           <div className="absolute rounded-full bg-fuchsia-300 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-  //           <div className="relative">
-  //             {/* <img className="object-cover object-center mx-auto rounded-lg shadow-2xl" alt="hero" src="/assets/images/placeholders/squareCard.png"> */}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <div className="flex flex-col items-start mt-12 mb-16 text-left lg:flex-grow lg:w-1/2 lg:pl-6 xl:pl-24 md:mb-0 xl:mt-0">
-  //       <span className="mb-8 text-xs font-bold tracking-widest text-blue-600 uppercase"> Your tagline </span>
-  //       <h1 className="mb-8 text-4xl font-bold leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">QuizGenius</h1>
-  //       <p className="mb-8 text-base leading-relaxed text-left text-gray-500"> QuizGeniusはQuizGeniusは最新AI技術を駆使した<br/>AIクイズ自動生成プラットフォームです。<br/>さっそく始めましょう!</p>
-  //       <div className="mt-0 lg:mt-6 max-w-7xl sm:flex">
-  //         <div className="mt-3 rounded-lg sm:mt-0">
-  //           <button className="items-center block px-10 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">サインイン</button>
-  //         </div>
-  //         <div className="mt-3 rounded-lg sm:mt-0 sm:ml-3">
-  //           <button className="items-center block px-10 py-3.5 text-base font-medium text-center text-blue-600 transition duration-500 ease-in-out transform border-2 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">無料で試す</button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>
   );
 }

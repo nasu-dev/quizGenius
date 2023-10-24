@@ -41,7 +41,7 @@ const HistoryComponent = async ({ limit, userId }: Props) => {
                 >
                   {game.topic}
                 </Link>
-                <p className="flex items-center px-2 py-1 text-xs text-white rounded-lg w-fit bg-slate-800">
+                <p className="flex items-center px-2 py-1 text-xs text-white rounded-lg w-fit bg-gradient-to-r from-slate-800 to-slate-600">
                   <Clock className="w-4 h-4 mr-1" />
                   {/* 日付形式で表示 */}
                   {new Date(game.timeStarted).toLocaleDateString("ja-JP")}

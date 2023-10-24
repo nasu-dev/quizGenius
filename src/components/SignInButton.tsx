@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { signIn } from "next-auth/react";
+import { LogIn } from "lucide-react";
 
 type Props = { text: string }; 
 
@@ -16,6 +17,7 @@ const SignInButton = ({ text }: Props) => {
     
     >
       {text} {/* ボタンのテキストを表示 */}
+      <LogIn size={20} className="ml-1" />
     </Button>
   );
 };

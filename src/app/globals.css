@@ -73,6 +73,10 @@
 .hidden-scrollbar::-webkit-scrollbar {
   display:none;
 }
+
+p span {
+  display: inline-block;
+}
  
 @layer base {
   * {
