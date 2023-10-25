@@ -24,29 +24,30 @@ export async function POST(req: Request, res: Response) {
     }
     const body = await req.json();
     const { topic, type, amount } = quizCreationSchema.parse(body);
-    const game = await prisma.game.create({
-      data: {
-        gameType: type,
-        timeStarted: new Date(),
-        userId: session.user.id,
-        topic,
-      },
-    });
-
-    await prisma.topic_count.upsert({
-      where: {
-        topic,
-      },
-      create: {
-        topic,
-        count: 1,
-      },
-      update: {
-        count: {
-          increment: 1,
+    const game = await prisma.$transaction([
+      prisma.game.create({
+        data: {
+          gameType: type,
+          timeStarted: new Date(),
+          userId: session.user.id,
+          topic,
         },
-      },
-    });
+      }),
+      prisma.topic_count.upsert({
+        where: {
+          topic,
+        },
+        create: {
+          topic,
+          count: 1,
+        },
+        update: {
+          count: {
+            increment: 1,
+          },
+        },
+      }),
+    ]);
 
     const { data } = await axios.post(
       `${process.env.API_URL as string}/api/questions`,
@@ -79,11 +80,12 @@ export async function POST(req: Request, res: Response) {
           question: question.question,
           answer: question.answer,
           options: JSON.stringify(options),
-          gameId: game.id,
+          gameId: game[0].id,
           questionType: "mcq",
         };
       });
     
+    // prisma.question.createManyを使用して一括で保存
     await prisma.question.createMany({
       data: manyData,
     });
@@ -91,20 +93,22 @@ export async function POST(req: Request, res: Response) {
   
     return NextResponse.json(
       {
-        gameId: game.id,
+        gameId: game[0].id,
       },
       { status: 200 }
     );
   } catch (error) {
+    // エラーハンドリングを改善
     if (error instanceof z.ZodError) {
+      console.error("Zod Error:", error.issues);
       return NextResponse.json({ error: error.issues }, { status: 400 });
     } else {
+      console.error("Unexpected Error:", error);
       return NextResponse.json(
         {
-          error: error,
+          error: "An unexpected error occurred",
         },
         { status: 500 }
-        // { error: "An unexpected error occurred" }, { status: 500 },
       );
     }
   }

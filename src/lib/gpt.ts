@@ -19,7 +19,7 @@ export async function strict_output(
   default_category: string = "",
   output_value_only: boolean = false,
   model: string = "gpt-3.5-turbo",
-  temperature: number = 1,
+  temperature: number = 0.2,
   num_tries: number = 1,
   verbose: boolean = false
 ): Promise<
@@ -38,27 +38,26 @@ export async function strict_output(
   // エラーメッセージなしでスタート
   let error_msg: string = "";
 
+  //
   for (let i = 0; i < num_tries; i++) {
     // 出力フォーマットに<or>の動的要素が含まれている場合、動的要素を扱うようにプロンプトに追加する。
-    let output_format_prompt: string = `\nYou are to output the following in json format: ${JSON.stringify(
+    let output_format_prompt = `\nYou are expected to provide the following information in JSON format: ${JSON.stringify(
       output_format
-      // 出力フィールドに引用符やエスケープ文字を入れないでください。
-    )}. \nDo not put quotation marks or escape character \\ in the output fields.`;
+    )}. Please do not include quotation marks or escape characters (\\) within the output fields.`;
 
     if (list_output) {
-      //出力フィールドがリストの場合、出力をリストの最適な要素に分類する。
-      output_format_prompt += `\nIf output field is a list, classify output into the best element of the list.`;
+      // If the output field is a list, specify that the output should be organized into the most appropriate element of the list.
+      output_format_prompt += `\nIf an output field is a list, organize the output into the most suitable element of the list.`;
     }
 
-    // if output_format contains dynamic elements, process it accordingly
     if (dynamic_elements) {
-      //と＞で囲まれたテキストは、それを置き換えるコンテンツを生成しなければならないことを示す。入力例 出力例： Go to the gardenn<と>で囲まれた出力キーは、置換するためにキー名を生成しなければならないことを示す。入力例 {<location>': '場所の説明'}, 出力例： {school：教育の場}`；
-      output_format_prompt += `\nAny text enclosed by < and > indicates you must generate content to replace it. Example input: Go to <location>, Example output: Go to the garden\nAny output key containing < and > indicates you must generate the key name to replace it. Example input: {'<location>': 'description of location'}, Example output: {school: a place for education}`;
+      // Text enclosed in < and > indicates that you must generate content to replace it.
+      output_format_prompt += `\nAny text enclosed by < and > indicates that you must generate content to replace it. For example, input: Go to <location>, output: Go to the garden. Any output key containing < and > indicates you must generate the key name to replace it. For example, input: {'<location>': 'description of location'}, output: {school: a place for education}.`;
     }
 
-    // 入力がリスト形式であれば、jsonをリスト形式で生成するように要求する。
     if (list_input) {
-      output_format_prompt += `\nGenerate a list of json, one json for each input element.`; //各入力要素に対して1つのjsonを生成する。
+      // If the input is in list format, request that you generate JSON in list format, with one JSON for each input element.
+      output_format_prompt += `\nIf the input is in list format, generate a list of JSON, with one JSON for each input element.`;
     }
 
     // OpenAIを使ってレスポンスを得る
@@ -85,7 +84,8 @@ export async function strict_output(
     res = res.replace(/(\w)"(\w)/g, "$1'$2");
 
     // OpenAI APIからの応答データから、1つ目の選択肢のメッセージのコンテンツ（テキスト）を取得。
-    if (verbose) { //冗長モードが有効な場合、システムプロンプト、ユーザープロンプト、エラーメッセージ、およびGPTの応答を出力する。
+    if (verbose) {
+      //冗長モードが有効な場合、システムプロンプト、ユーザープロンプト、エラーメッセージ、およびGPTの応答を出力する。
       console.log(
         "System prompt:",
         system_prompt + output_format_prompt + error_msg
@@ -94,9 +94,11 @@ export async function strict_output(
       console.log("\nGPT response:", res);
     }
 
+    console.log("res 1 :", res);
     // try-catchブロックで出力形式が守られていることを確認する。
     try {
       let output: any = JSON.parse(res);
+      console.log("output 1 :", output);
 
       if (list_input) {
         if (!Array.isArray(output)) {
@@ -152,7 +154,7 @@ export async function strict_output(
       //出力形式が正しくない場合、エラーメッセージを生成する。
       error_msg = `\n\nResult: ${res}\n\nError message: ${e}`;
       // console.log("An exception occurred:", e);
-      console.log("Current invalid json format: 3", res);
+      console.log("Current invalid json format: ", res);
     }
   }
 

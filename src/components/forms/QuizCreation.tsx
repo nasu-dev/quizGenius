@@ -147,7 +147,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
                     <FormLabel>トピック</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="（例）動物、食べ物、スポーツ"
+                        placeholder="（例）React, Next.js, TypeScript"
                         {...field}
                       />
                     </FormControl>

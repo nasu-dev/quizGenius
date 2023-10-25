@@ -1,5 +1,6 @@
-import { loadDefaultJapaneseParser } from 'budoux'
 import React from 'react'; // 必要なReactをインポート
+import { loadDefaultJapaneseParser } from 'budoux'
+
 const parser = loadDefaultJapaneseParser()
 
 export const useBudouX = () => {
