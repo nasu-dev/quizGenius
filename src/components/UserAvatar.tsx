@@ -17,7 +17,7 @@ const UserAvatar = ({ user, ...props }: Props) => {
        // 画像を表示するコンテナー
         <div className="relative w-full h-full aspect-square"> 
           <Image
-            fill
+            width={40} height={40}
             src={user.image}// ユーザーの画像を表示
             alt="profile picture"// 画像の代替テキスト
             referrerPolicy="no-referrer" // referrer情報を含まないように設定

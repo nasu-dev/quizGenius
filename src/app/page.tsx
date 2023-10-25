@@ -6,6 +6,7 @@ import { useBudouX } from "../lib/useBudouX";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Github } from "lucide-react";
+import Footer from "@/components/footer";
 
 export default async function Home() {
   const session = await getServerSession();
@@ -16,6 +17,7 @@ export default async function Home() {
   const { parse } = useBudouX();
 
   return (
+    <div>
     <div className="min-h-[70vh] flex flex-col md:flex-row md:justify-between items-center md:mx-32 mx-5 mt-10">
       <div className="md:w-2/4 text-center md:text-left mb-6">
         <h4 className="text-lg md:text-xl font-semibold tracking-tight mb-2 bg-gradient-to-r from-slate-500 to-slate-800 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent md:pl-1">
@@ -42,7 +44,9 @@ export default async function Home() {
             href="https://github.com/nasu-dev/quizGenius"
           >
             <Button variant="outline">
-            GitHubを開く<Github /></Button>
+              GitHubを開く
+              <Github />
+            </Button>
           </Link>
         </div>
       </div>
@@ -56,6 +60,8 @@ export default async function Home() {
           className="max-w-sm mx-auto md:max-w-full" // レスポンシブなクラス名に修正
         />
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }
