@@ -17,7 +17,7 @@ const SignInButton = ({ text }: Props) => {
     
     >
       {text} {/* ボタンのテキストを表示 */}
-      <LogIn size={20} className="ml-1" />
+      <LogIn size={20} className="hidden md:inline ml-1" />
     </Button>
   );
 };

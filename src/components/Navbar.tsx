@@ -28,11 +28,8 @@ const Navbar = async () => {
             <UserAccountNav user={session.user} /> //ユーザーアカウントナビゲーション
           ) : (
             <div>
-            <div className="hidden md:inline ">
-              <SignInButton text={"ログイン"} />
-            </div>
-            <div className="md:hidden">
-              <LogIn />
+            <div className="">
+              <SignInButton text={"LogIn"} />
             </div>
             </div>
           )}
