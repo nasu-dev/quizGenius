@@ -34,8 +34,6 @@ ChatGPT APIを用いた新しいAI×クイズ生成アプリケーション。 <
 * [📝 ディレクトリ一覧](#project-structure)
 
 * [📁 コードストラクチャー](#project-structure)
-  
-* [⚙️ セットアップ](#setting-up)
 
 * [🚀 ローカルでの実行](#run-locally)
 
@@ -251,15 +249,6 @@ shadCNは開発体験が非常に良く、今後も積極的に活用してい�
 ```
 ---
 
-## ⚙️ セットアップ
-
-#### Your Environment Variable
-
-- Step 1
-
-- Step 2
-
----
 
 ## 🚀 ローカルでの実行
 1.Clone the quizGenius repository:
