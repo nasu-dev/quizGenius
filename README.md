@@ -1,8 +1,15 @@
 # QuizGeuins
 
-#### ☁️ デプロイ先URL: [QuizGeius](https://ai-quiz-genius.vercel.app)
+## アプリ概要
+ChatGPT APIを用いた新しいAI×クイズ生成アプリケーション。 </br>
+好きなお題を入力すると、AIが瞬時に問題を生成し、あなただけの問題を出題します。 </br>
+エンタメとしてクイズ楽しむのはもちろん、新しい知識のキャッチアップや教育現場などにも利用可能。</br>
+日本語と英語でのゲームモードに対応。
+
+#### デプロイ先URL: [QuizGeius](https://ai-quiz-genius.vercel.app)
 
 <p></p>
+
 <img width="1391" alt="スクリーンショット 2023-11-06 11 09 43" src="https://github.com/nasu-dev/quizGenius/assets/114811498/cdeb171c-c716-4dc3-9c43-d2990f71dd85">
 
 
@@ -38,13 +45,6 @@
 
 ## 📌 プロジェクト概要
 
-#### アプリケーションについて
-QuizGeniusuはchatGPT APIを用いた新しいAI×クイズ生成アプリケーションです。 </br>
-好きなお題を入力すると、AIが瞬時に問題を生成し、あなただけの問題を出題します。
-エンタメとしてクイズ楽しむのはもちろん、新しい知識のキャッチアップや教育現場など幅広い用途で価値を提供できるアプリケーションです。</br> 
-日本語と英語でのゲームモードに対応。
-</p>
-
 #### 作成理由
 自分の趣味である英語学習に役立つアプリケーションを何か作成してみたいと思ったのがきっかけです。既存の問題集や単語帳では決まった問題しか出題されず、退屈だと感じてしまうことがありました。ユーザーの嗜好にあわせてパーソナライズされる学習ツールがあれば、より楽しみながら飽きずに言語学習を続けられると考えました。
 
@@ -63,27 +63,26 @@ shadCNは開発体験が非常に良く、今後も積極的に活用してい�
 
 ## 📸 画面一覧
 
-#### ログイン画面
+### ログイン画面
+<img width="1391" alt="スクリーンショット 2023-11-06 11 09 43" src="https://github.com/nasu-dev/quizGenius/assets/114811498/3edd902c-428b-4a2a-a9d4-e8d461ac6337">
+
+### ダッシュボード画面
+<img width="1377" alt="スクリーンショット 2023-11-06 11 03 19" src="https://github.com/nasu-dev/quizGenius/assets/114811498/328bfe63-b2bc-487a-8089-e20e13dfa8a6">
 
 
-#### ダッシュボード画面
+### クイズ生成画面
+<img width="1266" alt="スクリーンショット 2023-11-06 17 09 34" src="https://github.com/nasu-dev/quizGenius/assets/114811498/b8fdfe70-fb6b-42df-ad26-736c190fcb2b">
 
 
-#### クイズ生成画面
+### ゲームプレイ画面
+<img width="1375" alt="スクリーンショット 2023-11-06 15 54 43" src="https://github.com/nasu-dev/quizGenius/assets/114811498/aa99b2ec-4674-41ae-985d-3db9d5cfba63">
+
+### 結果表示画面
+<img width="1367" alt="スクリーンショット 2023-11-06 15 55 04" src="https://github.com/nasu-dev/quizGenius/assets/114811498/92ea494b-dd25-4b9f-82fb-e1b82e8eaf1c">
 
 
-#### ゲームプレイ画面
-
-
-#### 結果表示画面
-
-
-#### 履歴一覧画面
-
-
-#### ワードクラウド画面
-
-
+### 履歴一覧画面
+<img width="1293" alt="スクリーンショット 2023-11-06 17 11 10" src="https://github.com/nasu-dev/quizGenius/assets/114811498/f934fed0-7e82-4cf5-9d7a-c79ca8881e77">
 
 ---
 
