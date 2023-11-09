@@ -1,7 +1,10 @@
 {
     "functions": {
-      "api/*.ts": {
+      "src/app/api/game/route.ts": {
         "maxDuration": 60
-      }
+    },
+     "src/app/api/questions/route.ts": {
+        "maxDuration": 60
     }
   }
+}
