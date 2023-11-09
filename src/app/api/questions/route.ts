@@ -9,14 +9,12 @@ import { ZodError } from "zod";
 
 // クイズの質問を取得するための API ルート
 export async function POST(req: Request, res: Response) {
-  console.log("questions api called");
   try {
     // ユーザーの認証セッションを取得
     const session = await getAuthSession();
 
     // HTTP リクエストのボディからデータを取得
     const body = await req.json();
-    console.log("questions :", body);
     const { amount, topic, type } = getQuestionsSchema.parse(body);
     let questions: any;
     // もしタイプが "open_ended" である場合、開放型の質問を生成

@@ -98,7 +98,6 @@ const Question = ({ game }: Props) => {
             ...stats,
             correct_answers: stats.correct_answers + 1,
           }));
-          console.log("Before calling toast function");
           try {
           toast({
             title: "正解！",
@@ -108,14 +107,12 @@ const Question = ({ game }: Props) => {
         } catch (error) {
           console.error("Toast error:", error);
         }
-          console.log("After calling toast function");
         } else {
           //不正解の場合
           setStats((stats) => ({
             ...stats,
             wrong_answers: stats.wrong_answers + 1,
           }));
-          console.log("Before calling toast function");
           try {
           toast({
             title: "不正解！",
@@ -125,7 +122,6 @@ const Question = ({ game }: Props) => {
         } catch (error) {
           console.error("Toast error:", error);
         }
-          console.log("After calling toast function");
         }
         if (questionIndex === game.questions.length - 1) {
           //最後の問題の場合

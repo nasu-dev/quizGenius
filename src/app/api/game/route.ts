@@ -8,7 +8,6 @@ import { z } from "zod";
 import axios from "axios";
 
 export async function POST(req: Request, res: Response) {
-  console.log("game api called");
   try {
     const session = await getAuthSession();
     if (!session?.user) {
@@ -57,8 +56,6 @@ export async function POST(req: Request, res: Response) {
         type,
       }
     );
-
-    console.log("api/questions :", amount, topic, type);
 
     let manyData;
       type question = {

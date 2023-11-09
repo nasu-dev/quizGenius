@@ -18,7 +18,7 @@ export async function strict_output(
   output_format: OutputFormat,
   default_category: string = "",
   output_value_only: boolean = false,
-  model: string = "gpt-3.5-turbo",
+  model: string = "gpt-3.5-turbo-1106",
   temperature: number = 0.2,
   num_tries: number = 1,
   verbose: boolean = false
@@ -73,7 +73,6 @@ export async function strict_output(
         { role: "user", content: user_prompt.toString() },
       ],
     });
-    console.log("openai.createChatCompletion called");
 
     let res: string =
       // OpenAI API からの応答データから、1つ目の選択肢のメッセージのコンテンツ（テキスト）を取得。
@@ -94,11 +93,9 @@ export async function strict_output(
       console.log("\nGPT response:", res);
     }
 
-    console.log("res 1 :", res);
     // try-catchブロックで出力形式が守られていることを確認する。
     try {
       let output: any = JSON.parse(res);
-      console.log("output 1 :", output);
 
       if (list_input) {
         if (!Array.isArray(output)) {

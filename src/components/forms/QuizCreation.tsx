@@ -16,11 +16,8 @@ import {
 import { Button, buttonVariants } from "../ui/button";
 import { Input } from "../ui/input";
 import {
-  BookOpen,
-  CopyCheck,
   Flower,
   Globe2,
-  LucideLayoutDashboard,
   XCircle,
 } from "lucide-react";
 import { Separator } from "../ui/separator";
@@ -56,7 +53,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
     mutationFn: async ({ amount, topic, type }: Input) => {
       console.log("amount ", amount, " topic ", topic, " type ", type);
       const response = await axios.post("/api/game", { amount, topic, type });
-      console.log("response.data ", response.data);
+      console.log("response.post.data ", response.data);
       return response.data;
     },
   });
@@ -66,7 +63,7 @@ const QuizCreation = ({ topic: topicParam }: Props) => {
     defaultValues: {
       //デフォルト値
       topic: topicParam, //トピック名
-      type: "mcq", //クイズの種類
+      type: "open_ended", //クイズの種類
       amount: 3, //問題数
     },
   });
