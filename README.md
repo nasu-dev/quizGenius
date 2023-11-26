@@ -65,7 +65,7 @@ shadCNは開発体験が非常に良く、今後も積極的に活用してい�
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [shadCN UI](https://ui.shadcn.com/): UI作成に使用。Radix with Tailwind CSS のコード集でコンポーネント、テンプレート単位でインストール可。
-フルカスタム可能で海外ではかなり勢いのUIツール。先日作者がVercel社にジョイン。
+フルカスタム可能で海外ではかなり勢いのあるUIツール。先日作者がVercel社にジョイン。
 
 ### バックエンド
 
