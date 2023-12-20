@@ -2,7 +2,7 @@
 
 #### デプロイ先URL: [QuizGeius](https://ai-quiz-genius.vercel.app)
 ## アプリ概要
-ChatGPT APIを活用した新しいAI×クイズ生成アプリケーションです。 </br>
+ChatGPT APIを活用したAI×クイズ生成アプリケーションです。 </br>
 好きなお題を入力すると、AIが瞬時に問題を生成し、あなただけの問題を出題します。 </br>
 日本語、英語モード搭載。
 
